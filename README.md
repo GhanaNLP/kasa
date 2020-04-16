@@ -7,3 +7,5 @@ The `ghananlp-kasa-retrieval-v0-1.ipynb` retrieval "proof-of-concept" notebook i
 
 The `eng_twi_transformer.ipynb` transformer-based english-to-twi NMT model notebook is also loaded on kaggle @ 
 https://www.kaggle.com/azunre/ghananlp-kasa-nmt-transformer-v0-1
+
+The `nmt_eng_twi_data_gen.ipynb` is a seq2seq for eng-twi using keras with the implementation of Data Generators using the dataset `en-tw.txt`
