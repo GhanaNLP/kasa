@@ -1,0 +1,9 @@
+from distutils.core import setup
+
+setup(name='Kasa',
+    version='0.0.1',
+    description='A library of translation and other NLP tools for the Ghanaian language Twi',
+    packages=['Kasa'],
+    install_requires=['gensim >= 3.8.1'],
+    include_package_data=True,
+)
