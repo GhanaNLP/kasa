@@ -59,9 +59,16 @@ It is helpful to know the function of the following files when contributing:
 
 *)`setup.py` -- specify dependencies for added methods here
 
+*)`__init__.py` -- * import specification file, does not exist for now...
+
 *)`MANIFEST.in` -- (yet to be added) this will be used to make sure required files are copied over when the library is installed (no such requirement yet)
 
 # Need More Information on Syntax for Classes, Methods, etc?
+The method `dir` is very useful for debugging your classes and methods, example:
+
+1. `from Kasa import Preprocessing`
+2. `dir(Preprocessing)`
+
 If you need further information, either contact Ghana NLP members directly, or see a repo on github like this one:
 
 https://github.com/algorine/simon
