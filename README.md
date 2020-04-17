@@ -1,5 +1,5 @@
 # kasa
-English to Twi translation library/system being put together by the GhanaNLP team
+English to Twi translation library/system being put together by the Ghana NLP team
 
 # Quickstart
 Install Kasa directly from online link:
@@ -9,7 +9,9 @@ Install Kasa directly from online link:
 When editing Kasa locally, it is helpful to install from a local copy of Kasa instead:
 
 `git clone https://github.com/GhanaNLP/kasa`
+
 `cd kasa`
+
 `pip install .`
 
 The `examples/` folder of the repo constains examples you can directly run to test various functionalities, e.g., 
