@@ -43,7 +43,9 @@ Never push changes to master!!!
 Usually, we start our work by implementing it directly as a Jupyter Python notebook and host it on Kaggle runtime so team members can play around with ideas. Below is a list of the notebooks we have worked on so far, as well as links to where they are hosted on Kaggle so . They are located in the `notebooks/` subfolder of this repo, and the hope is to convert all useful methods they contain into refined methods within the `Kasa` library.
 
 *)The `data_processing.ipynb` preprocessing notebook is also loaded on kaggle @ https://www.kaggle.com/azunre/ghananlp-kasa-preprocessing-word2vec-v0-1 
+
 *)The `ghananlp-kasa-retrieval-v0-1.ipynb` retrieval "proof-of-concept" notebook is also loaded on kaggle @ https://www.kaggle.com/azunre/ghananlp-kasa-retrieval-v0-
+
 *)The `eng_twi_transformer.ipynb` transformer-based english-to-twi NMT model notebook is also loaded on kaggle @ 
 https://www.kaggle.com/azunre/ghananlp-kasa-nmt-transformer-v0-1
 
@@ -51,7 +53,9 @@ https://www.kaggle.com/azunre/ghananlp-kasa-nmt-transformer-v0-1
 It is helpful to know the function of the following files when contributing:
 
 *)`HISTORY.md` -- what functionality was added during each version/release, and what is planned to be added next/in the near future.
+
 *)`setup.py` -- specify dependencies for added methods here
+
 *)`MANIFEST.in` -- (yet to be added) this will be used to make sure required files are copied over when the library is installed (no such requirement yet)
 
 # Need More Information on Syntax for Classes, Methods, etc?
