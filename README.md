@@ -1,18 +1,18 @@
-# kasa
+# Kasa
 English to Twi translation library/system being put together by the Ghana NLP team
 
 # Quickstart
 Install Kasa directly from online link:
 
-`pip install git+https://github.com/GhanaNLP/kasa`
+1. `pip install git+https://github.com/GhanaNLP/kasa`
 
 When editing Kasa locally, it is helpful to install from a local copy of Kasa instead:
 
-`git clone https://github.com/GhanaNLP/kasa`
+1. `git clone https://github.com/GhanaNLP/kasa`
 
-`cd kasa`
+2. `cd kasa`
 
-`pip install .`
+3. `pip install .`
 
 The `examples/` folder of the repo constains examples you can directly run to test various functionalities, e.g., 
 
@@ -28,14 +28,15 @@ Please first clone this repo to your local machine, using a command line tool su
 
 Create a branch for your contributions, and check it out:
 
-`git branch <your-branch-name>`
-`git checkout <your-branch-name>`
+1. `git branch <your-branch-name>`
+
+2. `git checkout <your-branch-name>`
 
 Try to pick a branch name that described what you are planning to add to the library, see current branch names in this repo for ideas.
 
 Write your code, test it and then push to your branch:
 
-`git push origin <your-branch-name>`
+1. `git push origin <your-branch-name>`
 
 Create a pull request using the online github repo page, making sure to include a senior member of the team to review your work before merging it into the master branch of the repo. 
 
