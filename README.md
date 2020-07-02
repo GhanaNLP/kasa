@@ -1,5 +1,5 @@
 # Kasa
-English to Twi translation library/system being put together by the Ghana NLP team
+English to Twi translation library/system being put together by the Ghana NLP team.
 
 # Quickstart
 Install Kasa directly from online link:
