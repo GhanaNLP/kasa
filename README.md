@@ -20,6 +20,10 @@ The `examples/` folder of the repo constains examples you can directly run to te
 
 This may require obtaining some data files and accordingly passing the right paths to the methods in `load_and_preprocess_parallel_dataset.py`. All this should be self-explanatory if you look at the code.
 
+# Data Files
+You will need to download two corpus (English and Twi) into a data folder on your local machine in order to run the examples, using the link below.
+
+`https://www.kaggle.com/azunre/jw300entw`
 
 # Contributing
 Please first clone this repo to your local machine, using a command line tool such as Cygwin or Anaconda Prompt:
