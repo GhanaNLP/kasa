@@ -1,6 +1,9 @@
 # Kasa
 English to Twi translation library/system being put together by the Ghana NLP team.
 
+
+
+Added a change in my forked repository.  I will requrest for a Pull Request
 # Quickstart
 Install Kasa directly from online link:
 
