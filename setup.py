@@ -7,7 +7,7 @@ setup(name='Kasa',
     author_email='azunre@gmail.com',
     license='MIT',
     packages=['Kasa'],
-    install_requires=['gensim == 3.8.1', 'transformers==3.1.0', 'torch==1.5.1'],
+    install_requires=['gensim == 3.8.1'],
     include_package_data=True, 
 )
  
