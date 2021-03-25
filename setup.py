@@ -8,8 +8,7 @@ setup(name='Kasa',
     license='MIT',
     packages=['Kasa'],
     install_requires=['gensim == 3.8.1'],
-    include_package_data=True, 
-    include_package_data=True, 
+    include_package_data=True,
 )
  
 
