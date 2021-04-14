@@ -1,6 +1,7 @@
 from transformers import BertConfig
 from transformers import BertTokenizerFast
 Diane Dagadu
+Franklin
 
 #tokenizer = BertTokenizerFast.from_pretrained("bert-base-multilingual-cased") # use pretrained mBERT checkpoint tokenizer
 tokenizer = BertTokenizerFast.from_pretrained("bert-base-multilingual-cased", do_lower_case=True) # for asante, lowercase pretrained tokenizer
