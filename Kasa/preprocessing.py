@@ -1,4 +1,3 @@
-man
 import re
 import unicodedata
 
