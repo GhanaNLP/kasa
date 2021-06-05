@@ -1,9 +1,10 @@
-from transformers import BertConfig
-from transformers import BertTokenizerFast
+# from transformers import BertConfig
+# from transformers import BertTokenizerFast
 
+import transformers
 
 #tokenizer = BertTokenizerFast.from_pretrained("bert-base-multilingual-cased") # use pretrained mBERT checkpoint tokenizer
-tokenizer = BertTokenizerFast.from_pretrained("bert-base-multilingual-cased", do_lower_case=True) # for asante, lowercase pretrained tokenizer
+tokenizer = transformers.BertTokenizerFast.from_pretrained("bert-base-multilingual-cased", do_lower_case=True) # for asante, lowercase pretrained tokenizer
 
 #tokenizer.save_vocabulary("abena-base-akuapem-twi-cased") # when using pretrained tokenizer, be sure to save it locally
 tokenizer.save_vocabulary("abena-base-asante-twi-uncased") # saving pretrained tokenizer locally in case of asante
