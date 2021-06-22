@@ -1,3 +1,3 @@
 from .preprocessing import *
-from .berttokenizer import *
-from .trainbert import *
+from .contextual_embeddings import *
+from .static_embeddings import *
