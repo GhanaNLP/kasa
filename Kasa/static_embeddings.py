@@ -19,7 +19,7 @@ class StaticEmbedding:
 
     def get_embedding(data, typeFunc=Word2Vec, size=100, window=5, min_count=5, sg=0, save=False, negative=10):
         """
-        Generate embeddings for input data. Currently works with either word2vec or Fasttext from gensim
+        Generate embeddings for input data using either word2vec or Fasttext from gensim
     
         Parameters
         ----------
@@ -49,9 +49,9 @@ class StaticEmbedding:
     
     
     
-    def get_embedding_train(data, model, typeFunc=fasttext, epochs = 5, size=100, window=5, min_count=5, sg=0, save=False, negative=10):
+    def get_trained_embedding(data, model, typeFunc=fasttext, epochs = 5, size=100, window=5, min_count=5, sg=0, save=False, negative=10):
         """
-        Generate embeddings for input data using a pretrained model. Currently works with either word2vec or Fasttext from gensim
+        Train embeddings for input data, starting from pretrained model. Currently works with either word2vec or Fasttext from gensim
     
         """
         # load the pretrained model
@@ -110,3 +110,15 @@ class StaticEmbedding:
     
         """
         return model.wv.similarity(word1, word2)
+    
+    def get_most_similar_words(word, model):
+        """
+        Return most similar words for a given model
+    
+        Parameters
+        ----------
+        word : str
+        model : gensim model type of learned word embeddings
+    
+        """
+        return word2vec.wv.most_similar(word)
