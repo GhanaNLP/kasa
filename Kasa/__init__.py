@@ -1,3 +1,3 @@
-from .preprocessing import *
-from .contextual_embeddings import *
-from .static_embeddings import *
+from .Preprocessing import *
+from .ContextualEmbeddings import *
+from .StaticEmbeddings import *

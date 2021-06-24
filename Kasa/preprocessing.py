@@ -8,29 +8,29 @@ class Preprocessing:
         # initialize with some default parameters here later
         pass
     
-    def read_dataset(file_path, number=None, normalize=False, language="eng"):
-    """
-    Read NUMBER_OF_DATASET lines of data in supplied file_path
-    Perform normalization (if normalize=True) based on input language(default:"eng", option:"twi")
-
-    Returns
-    -------
-    List[list] of processed word tokens for sentences in file_path
-    """
-
-    with open(file_path) as file:
-        data = file.read()
-    data = data.split("\n")
-    if number:
-        assert number < len(data), "Number of dataset less than required subset"
-        data = data[:number]
-    if normalize:
-        data = [normalize_line(line, language=language).split() for line in data]
-    return data
+    def read_dataset(self,file_path, number=None, normalize=False, language="en"):
+        """
+        Read NUMBER_OF_DATASET lines of data in supplied file_path
+        Perform normalization (if normalize=True) based on input language(default:"en",
+        list of all option:["en","tw"])
+    
+        Returns
+        -------
+        List[list] of processed word tokens for sentences in file_path
+        """
+        with open(file_path) as file:
+            data = file.read()
+        data = data.split("\n")
+        if number:
+            assert number < len(data), "Number of dataset less than required subset"
+            data = data[:number]
+        if normalize:
+            data = [self.normalize_line(line, language=language).split() for line in data]
+        return data
     
     # read in parallel twi - english dataset
-    def read_parallel_dataset(self,filepath_twi='../data/jw300.en-tw.tw',
-                              filepath_english='../data/jw300.en-tw.en'):
+    def read_parallel_dataset(self,filepath_twi='../../data/jw300.en-tw.tw',
+                              filepath_english='../../data/jw300.en-tw.en'):
         
         # read english data
         english_data = []
@@ -61,27 +61,27 @@ class Preprocessing:
         return ''.join(c for c in unicodedata.normalize('NFD', s) if unicodedata.category(c) != 'Mn')
 
     
-    def normalize_line(s, language="eng"):
-    """
-    Perform some cleanup on supplied str based on language.
+    def normalize_line(self,s, language="en"):
+        """
+        Perform some cleanup on supplied str based on language.
+        
+        Parameters
+        ----------
+        s : str
+        language: str
+            default is "en" for english. Current option list is ["en","tw"]
+        
+        Returns
+        -------
+        str of cleaned sentence
+        """
+        s = self.unicode_to_ascii(s)
+        s = re.sub(r'([!.?])', r' \1', s)
+        s = s.lower()
+        if language == "tw":
+            s = re.sub(r'[^a-zA-Z.ƆɔɛƐ!?’]+', r' ', s)
+        elif language == "en":
+            s = re.sub(r'[^a-zA-Z.!?]+', r' ', s)
+        s = re.sub(r'\s+', r' ', s)
     
-    Parameters
-    ----------
-    s : str
-    language: str
-        default is "eng" for english. option is "twi"
-    
-    Returns
-    -------
-    str of cleaned sentence
-    """
-    s = unicode_to_ascii(s)
-    s = re.sub(r'([!.?])', r' \1', s)
-    s = s.lower()
-    if language == "twi":
-        s = re.sub(r'[^a-zA-Z.ƆɔɛƐ!?’]+', r' ', s)
-    elif language == "eng":
-        s = re.sub(r'[^a-zA-Z.!?]+', r' ', s)
-    s = re.sub(r'\s+', r' ', s)
-    
-    return s
+        return s

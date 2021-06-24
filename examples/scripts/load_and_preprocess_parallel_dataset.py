@@ -12,12 +12,12 @@ TwiPreprocessor = Preprocessing()
 
 # Read raw parallel dataset
 raw_data_twi,raw_data_en = TwiPreprocessor.read_parallel_dataset(
-        filepath_twi='../data/jw300.en-tw.tw',
-        filepath_english='../data/jw300.en-tw.en')
+        filepath_twi='../../data/jw300.en-tw.tw',
+        filepath_english='../../data/jw300.en-tw.en')
 
 # Normalize the raw data
-raw_data_en = [TwiPreprocessor.normalize_eng(data) for data in raw_data_en]
-raw_data_twi = [TwiPreprocessor.normalize_twi(data) for data in raw_data_twi]
+raw_data_en = [TwiPreprocessor.normalize_line(data,language="en") for data in raw_data_en]
+raw_data_twi = [TwiPreprocessor.normalize_line(data,language="tw") for data in raw_data_twi]
 
 # Tokenize into words - which just means split each sentence into word units/tokens
 data=[]
