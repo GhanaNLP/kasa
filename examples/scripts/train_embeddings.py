@@ -19,6 +19,9 @@ import os
 import pandas as pd
 from scipy.stats import spearmanr
 import argparse
+from gensim.models import Word2Vec, FastText
+from Kasa.Preprocessing import Preprocessing
+from Kasa.StaticEmbeddings import StaticEmbedding
 
 
 parser = argparse.ArgumentParser()
@@ -33,8 +36,8 @@ args = parser.parse_args()
 
 NUMBER_OF_DATASET = 100
 DIMENSION = 300
-DATA_DIR = "./DATA"
-MODELS_DIR = "./MODELS"
+DATA_DIR = "../../data"
+MODELS_DIR = "../../models"
 ENG_PATH = os.path.join(DATA_DIR, "jw300.en-tw.en")
 TWI_PATH = args.data if args.data else os.path.join(DATA_DIR, "jw300.en-tw.tw")
 WORDSIM_PATH = os.path.join(DATA_DIR, "wordsim_tw.txt")
@@ -60,16 +63,19 @@ if __name__ == "__main__":
     START_DATE = DATE.strftime("%d/%m/%Y %H:%M:%S")
     
     # create logger file to log details of run
-    logger = open(f"log.txt_{START_DATE.split()[1]}", "w")
+    logger = open(f"log.txt", "w")
     
     logger.write(f"Run started on : {START_DATE}\n")
     logger.write(" ================================================================= \n")
+    
+    # Create an instance of Kasa preprocessing class
+    TwiPreprocessor = Preprocessing()
     
     # Read twi data from supplied path to TWI file and preprocess
     print("Reading and processing dataset ...\n")
     start =time.time()
     number = NUMBER_OF_DATASET if TEST else None
-    twi_data = read_dataset(TWI_PATH, number = number, normalize=True, language="twi")
+    twi_data = TwiPreprocessor.read_dataset(filepath=TWI_PATH, number = number, normalize=True, language="tw")
     tot_time = time.time() - start
     logger.write(f"Time to complete reading file : {tot_time:.2f}\n")
     
@@ -78,9 +84,9 @@ if __name__ == "__main__":
     start =time.time()
     dimension = 50 if TEST else DIMENSION
     if USE_PRETRAINED:
-        embeddings = get_embedding_train(twi_data, init_filepath, sg=1, negative=10, size=dimension, epochs=EPOCHS)
+        embeddings = StaticEmbedding.get_trained_embedding(twi_data, init_filepath, sg=1, negative=10, size=dimension, epochs=EPOCHS)
     else:
-        embeddings = get_embedding(twi_data, FastText, size = dimension, sg=1, negative=10,  save=SAVE_MODEL)
+        embeddings = StaticEmbedding.get_embedding(twi_data, FastText, size = dimension, sg=1, negative=10,  save=SAVE_MODEL)
     tot_time = time.time() - start
     logger.write(f"Time to complete creating embeddings file : {tot_time:.2f}\n")
     model_details = str(embeddings)
@@ -91,7 +97,7 @@ if __name__ == "__main__":
     if VISUALIZE_FILE:
         print("Generating TSV files for visualization ...\n")
         start = time.time()
-        prepare_for_visualization(embeddings, save_dir=MODELS_DIR)
+        StaticEmbedding.prepare_for_visualization(embeddings, save_dir=MODELS_DIR)
         tot_time = time.time() - start
         logger.write(f"Time to complete creating TSV  file : {tot_time:.2f}\n")
     
@@ -100,7 +106,7 @@ if __name__ == "__main__":
         print("Computing Correlation")
         word_sim = pd.read_csv(WORDSIM_PATH, header=None,)
         word_sim.columns = ["word1", "word2", "relatedness"]
-        similarities = [get_similarity(*word_sim[["word1","word2"]].values[i], embeddings) for i in range(len(word_sim))]
+        similarities = [StaticEmbedding.get_similarity(*word_sim[["word1","word2"]].values[i], embeddings) for i in range(len(word_sim))]
         word_sim['similarities'] = similarities
         corr =spearmanr(word_sim[["relatedness", "similarities"]])
         logger.write("==================================================================\n")
