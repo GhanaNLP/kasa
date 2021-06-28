@@ -38,9 +38,8 @@ NUMBER_OF_DATASET = 100
 DIMENSION = 300
 DATA_DIR = "../../data"
 MODELS_DIR = "../../models"
-ENG_PATH = os.path.join(DATA_DIR, "jw300.en-tw.en")
 TWI_PATH = args.data if args.data else os.path.join(DATA_DIR, "jw300.en-tw.tw")
-WORDSIM_PATH = os.path.join(DATA_DIR, "wordsim_tw.txt")
+WORDSIM_PATH = os.path.join(DATA_DIR, "wordsim_tw.csv")
 
 ######################### RUNNING PARAMETERS ####################
 TEST = True if args.test else False
