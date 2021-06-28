@@ -86,7 +86,7 @@ if __name__ == "__main__":
     if USE_PRETRAINED:
         embeddings = StaticEmbedding.get_trained_embedding(twi_data, init_filepath, sg=1, negative=10, size=dimension, epochs=EPOCHS)
     else:
-        embeddings = StaticEmbedding.get_embedding(twi_data, FastText, size = dimension, sg=1, negative=10,  save=SAVE_MODEL)
+        embeddings = StaticEmbedding.get_embedding(twi_data, MODELS_DIR, FastText, size = dimension, sg=1, negative=10,  save=SAVE_MODEL)
     tot_time = time.time() - start
     logger.write(f"Time to complete creating embeddings file : {tot_time:.2f}\n")
     model_details = str(embeddings)

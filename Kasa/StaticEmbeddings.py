@@ -17,7 +17,7 @@ class StaticEmbedding:
         # initialize with some default parameters here later
         pass
 
-    def get_embedding(data, typeFunc=Word2Vec, size=100, window=5, min_count=5, sg=0, save=False, negative=10):
+    def get_embedding(data, MODELS_DIR, typeFunc=Word2Vec, size=100, window=5, min_count=5, sg=0, save=False, negative=10):
         """
         Generate embeddings for input data using either word2vec or Fasttext from gensim
     
