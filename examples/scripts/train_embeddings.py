@@ -36,8 +36,8 @@ args = parser.parse_args()
 
 NUMBER_OF_DATASET = 100
 DIMENSION = 300
-DATA_DIR = "..\..\data"
-MODELS_DIR = "..\..\models"
+DATA_DIR = "..\data"
+MODELS_DIR = "..\models"
 TWI_PATH = args.data if args.data else os.path.join(DATA_DIR, "jw300.en-tw.tw")
 WORDSIM_PATH = os.path.join(DATA_DIR, "wordsim_tw.csv")
 
