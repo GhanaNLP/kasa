@@ -1,6 +1,7 @@
 # List files/folders you don't want pushed to repo here
 data/
 backup/
+models/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
