@@ -1,6 +1,6 @@
 import json
 
-from kasa.khaya.abstract_api import BASE_API
+from khaya.abstract_api import BASE_API
 
 
 class TTSAPI(BASE_API):

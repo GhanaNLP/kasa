@@ -1,4 +1,4 @@
-from kasa.khaya.abstract_api import BASE_API
+from khaya.abstract_api import BASE_API
 
 
 class ASRAPI(BASE_API):
@@ -21,4 +21,4 @@ class ASRAPI(BASE_API):
         self.headers["Content-Type"] = "audio/wav"
 
         response = self._make_request("POST", url, data=data)
-        return response.json()
+        return response

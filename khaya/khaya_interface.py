@@ -1,12 +1,12 @@
 from typing import Optional
 
-from kasa.khaya.asr_api import ASRAPI
-from kasa.khaya.translation_api import TranslationAPI
-from kasa.khaya.tts_api import TTSAPI
+from khaya.asr_api import ASRAPI
+from khaya.translation_api import TranslationAPI
+from khaya.tts_api import TTSAPI
 
 
 class KhayaInterface:
-    def __init__(self, api_key: str, base_url: Optional[str] = None):
+    def __init__(self, api_key: str, base_url: Optional[str] = "https://translation-api.ghananlp.org"):
         self.api_key = api_key
         self.base_url = base_url
         self.translation_api = TranslationAPI(api_key, base_url)

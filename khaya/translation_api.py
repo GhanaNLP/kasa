@@ -1,4 +1,4 @@
-from kasa.khaya.abstract_api import BASE_API
+from khaya.abstract_api import BASE_API
 
 
 class TranslationAPI(BASE_API):

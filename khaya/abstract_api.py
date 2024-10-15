@@ -26,7 +26,8 @@ class BASE_API(ABC):
             requests.Response: The HTTP response.
         """
         try:
-            response = requests.request(method, url, headers=self.headers, **kwargs)
+            response = requests.request(
+                method, url, headers=self.headers, **kwargs)
             response.raise_for_status()
             return response
         except requests.exceptions.HTTPError as http_e:
