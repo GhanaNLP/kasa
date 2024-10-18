@@ -26,7 +26,6 @@ jobs:
         run: |
           curl -sSL https://install.python-poetry.org | python3 - -y
           echo "$HOME/.local/bin" >> $GITHUB_PATH
-          source $HOME/.local/env
 
       - name: Configure Poetry to not create virtualenvs
         run: poetry config virtualenvs.create false
