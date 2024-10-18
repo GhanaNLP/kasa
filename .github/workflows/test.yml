@@ -22,16 +22,15 @@ jobs:
       - name: Install Poetry
         run: |
           curl -sSL https://install.python-poetry.org | python3 -
-          echo "$HOME/.poetry/bin" >> $GITHUB_PATH
-          source $HOME/.poetry/env
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
 
       - name: Configure Poetry to not create virtualenvs
         run: poetry config virtualenvs.create false
 
       - name: Install dependencies
-        run: poetry install
+        run: poetry install --with test
 
       - name: Run tests
         env:
           khaya_api_key: ${{ secrets.KHAYA_API_KEY }}
-        run: poetry run pytest
+        run: poetry run pytest --cov=khaya 
