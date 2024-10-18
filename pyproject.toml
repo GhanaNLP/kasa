@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "kasa"
+version = "0.4.0"
+description = "NLP tools put together by GhanaNLP Team"
+authors = [
+    "Paul Azunre<paul.Azunre@gmail.com>",
+    "Lawrence<bh-204@hotmail.com>",
+    ]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+requests = "^2.32.3"
+
+[tool.poetry.group.test.dependencies]
+pytest = "^6.0.0"
+pytest-cov = "^5.0.0"
+python-dotenv = "^1.0.1"
+
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.12.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
