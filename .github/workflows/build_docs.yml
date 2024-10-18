@@ -1,0 +1,46 @@
+name: Build Docs
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+
+jobs:
+  build-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.11"
+      
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 - -y
+          echo "$HOME/.poetry/bin" >> $GITHUB_PATH
+          source $HOME/.poetry/env
+
+      - name: Configure Poetry to not create virtualenvs
+        run: poetry config virtualenvs.create false
+
+      - name: Install dependencies
+        run: poetry install --with docs
+
+      - name: Build MkDocs site
+        run: poetry run mkdocs build
+
+      # Optional: Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
+        if: github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
