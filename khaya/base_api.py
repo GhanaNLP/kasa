@@ -1,9 +1,9 @@
-from abc import ABC, abstractmethod
+from abc import ABC
 from typing import Optional
 import requests
 
 
-class BASE_API(ABC):
+class BaseApi(ABC):
     def __init__(self, api_key: str, base_url: Optional[str] = None):
         self.api_key = api_key
         self.base_url = base_url or "https://translation-api.ghananlp.org"

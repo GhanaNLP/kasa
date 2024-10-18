@@ -1,9 +1,9 @@
 from requests.models import Response
 
-from khaya.abstract_api import BASE_API
+from khaya.base_api import BaseApi
 
 
-class ASRAPI(BASE_API):
+class AsrApi(BaseApi):
     def transcribe(self, audio_file_path: str, language="tw") -> Response:
         """
         Convert speech to text from audio binary data in an African language using the GhanaNLP STT API.

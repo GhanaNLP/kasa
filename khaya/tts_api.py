@@ -1,10 +1,10 @@
 import json
 from requests.models import Response
 
-from khaya.abstract_api import BASE_API
+from khaya.base_api import BaseApi
 
 
-class TTSAPI(BASE_API):
+class TtsApi(BaseApi):
     def synthesize(self, text: str, lang: str) -> Response:
         """
         Convert text to speech in a specified African language using the GhanaNLP TTS API.

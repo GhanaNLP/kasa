@@ -2,9 +2,9 @@ from typing import Optional
 
 from requests.models import Response
 
-from khaya.asr_api import ASRAPI
-from khaya.translation_api import TranslationAPI
-from khaya.tts_api import TTSAPI
+from khaya.asr_api import AsrApi
+from khaya.translation_api import TranslationApi
+from khaya.tts_api import TtsApi
 
 
 class KhayaInterface:
@@ -12,9 +12,9 @@ class KhayaInterface:
     def __init__(self, api_key: str, base_url: Optional[str] = "https://translation-api.ghananlp.org"):
         self.api_key = api_key
         self.base_url = base_url
-        self.translation_api = TranslationAPI(api_key, base_url)
-        self.asr_api = ASRAPI(api_key, base_url)
-        self.tts_api = TTSAPI(api_key, base_url)
+        self.translation_api = TranslationApi(api_key, base_url)
+        self.asr_api = AsrApi(api_key, base_url)
+        self.tts_api = TtsApi(api_key, base_url)
 
     def translate(self, text: str, language_pair: str = "en-tw") -> Response:
         return self.translation_api.translate(text, language_pair)
