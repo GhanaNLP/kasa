@@ -3,10 +3,10 @@ name: Build Docs
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
     branches:
-      - main
+      - master
 
   workflow_dispatch:
 
@@ -25,8 +25,7 @@ jobs:
       - name: Install Poetry
         run: |
           curl -sSL https://install.python-poetry.org | python3 - -y
-          echo "$HOME/.poetry/bin" >> $GITHUB_PATH
-          source $HOME/.poetry/env
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
 
       - name: Configure Poetry to not create virtualenvs
         run: poetry config virtualenvs.create false
