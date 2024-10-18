@@ -1,0 +1,123 @@
+site_name: " "
+site_description: A Python package with NLP Tools for Low-Resource Languages by GhanaNLP
+# repo_url:
+repo_name: kasa
+docs_dir: docs/
+theme:
+  name: material
+  logo: NLPGhana_logo_v2_(black).png
+  favicon: docs/NLPGhana_logo_v2_(black).png
+  features:
+    - announce.dismiss
+    - content.action.edit
+    - content.action.view
+    - content.code.annotate
+    - content.code.copy
+    - content.tooltips
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - navigation.footer
+    - navigation.sections
+    - navigation.indexes
+    - navigation.instant
+    - navigation.path
+    - navigation.instant.progress
+    - navigation.tracking
+    - search.highlight
+    - search.suggest
+    - toc.follow
+    # - toc.integrate
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      accent: purple
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      accent: lime
+      toggle:
+        icon: material/weather-night
+        name: Switch to system preference
+  toc_depth: 2
+      
+plugins:
+  - search
+  - autorefs
+  - monorepo
+  - mkdocs-jupyter:
+      include: ["*.ipynb"]
+      include_requirejs: true
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [khaya]
+          import:
+            - https://docs.python.org/3/objects.inv
+            - https://mkdocstrings.github.io/objects.inv
+            - https://mkdocstrings.github.io/griffe/objects.inv
+          options:
+            docstring_options:
+              ignore_init_summary: false
+            docstring_section_style: table
+            heading_level: 2
+            merge_init_into_class: true
+            inherited_members: true
+            members_order: alphabetical
+            separate_signature: true
+            show_category_heading: true
+            show_root_heading: true
+            show_root_toc_entry: true
+            show_root_full_path: false
+            show_signature_annotations: true
+            show_signature: true
+            show_source: true
+            signature_crossrefs: true
+            summary: true
+
+nav:
+  - Home: 
+    - Overview: index.md
+    - Changelog: changelog.md
+    - License: license.md
+  - Contributing: 
+    - contributing/index.md
+  - API Reference: 
+      - khaya:
+          - KhayaInterface: 
+            - api-reference/khaya/khaya_interface.md
+
+
+markdown_extensions:
+  - attr_list
+  - markdown_include.include:
+      base_path: .
+  - toc:
+      toc_depth: 2
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.arithmatex:
+      generic: true
+
+  
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+extra_css:
+  - stylesheets/extra.css
+  - stylesheets/mkdocstrings.css
+  - stylesheets/material.css
+extra:
+  version: 0.4.0
