@@ -36,5 +36,4 @@ jobs:
         env:
           khaya_api_key: ${{ secrets.KHAYA_API_KEY }}
         run: |
-          echo "KHAYA_API_KEY = $khaya_api_key" 
           poetry run pytest --cov=khaya 
