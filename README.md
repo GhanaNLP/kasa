@@ -61,7 +61,7 @@ It is helpful to know the function of the following files when contributing:
 
 *)`HISTORY.md` -- what functionality was added during each version/release, and what is planned to be added next/in the near future.
 
-*)`contribution.md` -- Up to date set up and deveoper contribution guide.
+*)`contribution.md` -- Up to date set up and developer contribution guide.
 
 *)`setup.py` -- specify dependencies for added methods here
 
