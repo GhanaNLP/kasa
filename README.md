@@ -1,8 +1,8 @@
 # Kasa
-English to Twi translation library/system being put together by the Ghana NLP team.
+A python library/system to interact with the African language translation, STT (Speech to Text) and TTS (Text to Speech) models put together by the Ghana NLP team.
 
 # Quickstart
-Install Kasa directly from online link:
+To use this, install Kasa directly from online link:
 
 1. `pip install git+https://github.com/GhanaNLP/kasa`
 
@@ -60,6 +60,8 @@ https://www.kaggle.com/azunre/ghananlp-kasa-nmt-transformer-v0-1
 It is helpful to know the function of the following files when contributing:
 
 *)`HISTORY.md` -- what functionality was added during each version/release, and what is planned to be added next/in the near future.
+
+*)`contribution.md` -- Up to date set up and deveoper contribution guide.
 
 *)`setup.py` -- specify dependencies for added methods here
 
