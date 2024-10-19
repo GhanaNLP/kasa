@@ -3,10 +3,10 @@ name: Test Package
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
     branches:
-      - main
+      - master
 
   workflow_dispatch:
 
@@ -35,4 +35,5 @@ jobs:
       - name: Run tests
         env:
           khaya_api_key: ${{ secrets.KHAYA_API_KEY }}
-        run: poetry run pytest --cov=khaya 
+        run: |
+          poetry run pytest --cov=khaya 
