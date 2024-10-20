@@ -15,24 +15,14 @@ class Preprocessing:
         # read english data
         english_data = []
         with open(filepath_english, encoding='utf-8') as file:
-            line = file.readline()
-            cnt = 1
-            while line:
+            for line in file:
                 english_data.append(line.strip())
-                line = file.readline()
-                cnt += 1
 
         # read twi data
         twi_data = []
         with open(filepath_twi, encoding='utf-8') as file:
-    
-            # twi=file.read()
-            line = file.readline()
-            cnt = 1
-            while line:
+            for line in file:
                 twi_data.append(line.strip())
-                line = file.readline()
-                cnt += 1
                 
         return twi_data,english_data
     
