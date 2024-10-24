@@ -1,3 +1,24 @@
+import pytest
+
+from khaya import khayaAPI
+
+
+@pytest.mark.parametrize(
+    "task, input, lang,", [
+        ("translate", "Hello", "en-tw"),
+        ("asr", "tests/khaya/me_ho_ye.wav", "tw"),
+        ("tts", "Hello", "tw"),
+    ]
+)
+def test_invalid_api_key(task, input, lang):
+    invalid_api_key = "invalid_api_key"
+    khaya_interface = khayaAPI(invalid_api_key)
+
+    # execute the task
+    result = getattr(khaya_interface, task)(input, lang)
+
+    assert "401 Client Error" in result["message"]
+
 
 class TestTranslate:
 
@@ -19,6 +40,14 @@ class TestTranslate:
 
         assert "error" in result.text.lower()
 
+    def test_translate_empty_text(self, khaya_interface):
+        text = ""
+        translation_pair = "en-tw"
+
+        result = khaya_interface.translate(text, translation_pair)
+
+        assert "error" in result.text.lower()
+
 
 class TestASR:
 
@@ -31,13 +60,19 @@ class TestASR:
         assert "error" not in result.text.lower()
         assert result.json() == "me ho yɛ"
 
-    def test_asr_error(self, khaya_interface):
+    def test_asr_error_invalid_language(self, khaya_interface):
         audio_file_path = "tests/khaya/me_ho_ye.wav"
         wrong_lang = "fw"
 
         result = khaya_interface.asr(audio_file_path, wrong_lang)
 
         assert "error" in result['message'].lower()
+
+    def test_asr_error_nonexistent_file(self, khaya_interface):
+        audio_file_path = "tests/khaya/nonexistent.wav"
+
+        with pytest.raises(FileNotFoundError):
+            khaya_interface.asr(audio_file_path, "tw")
 
 
 class TestTTS:
@@ -57,5 +92,13 @@ class TestTTS:
         wrong_lang = "fw"
 
         result = khaya_interface.tts(text, wrong_lang)
+
+        assert "error" in result.text.lower()
+
+    def test_tts_empty_text(self, khaya_interface):
+        text = ""
+        lang = "tw"
+
+        result = khaya_interface.tts(text, lang)
 
         assert "error" in result.text.lower()
