@@ -1,5 +1,3 @@
-import pytest
-
 
 class TestTranslate:
 
