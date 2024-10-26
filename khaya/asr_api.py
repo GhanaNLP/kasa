@@ -4,7 +4,7 @@ from khaya.base_api import BaseApi
 
 
 class AsrApi(BaseApi):
-    def transcribe(self, audio_file_path: str, language="tw") -> Response:
+    def transcribe(self, audio_file_path: str, language="tw") -> Response | dict[str, str]:
         """
         Convert speech to text from audio binary data in an African language using the GhanaNLP STT API.
 

@@ -4,7 +4,7 @@ from khaya.base_api import BaseApi
 
 
 class TranslationApi(BaseApi):
-    def translate(self, text: str, language_pair: str = "en-tw") -> Response:
+    def translate(self, text: str, language_pair: str = "en-tw") -> Response | dict[str, str]:
         """
         Translate text from one language to another using the GhanaNLP translation API.
 

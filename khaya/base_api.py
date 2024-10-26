@@ -1,5 +1,6 @@
 from abc import ABC
 from typing import Optional
+
 import requests
 
 
@@ -13,7 +14,7 @@ class BaseApi(ABC):
             "Cache-Control": "no-cache",
         }
 
-    def _make_request(self, method: str, url: str, **kwargs) -> requests.Response:
+    def _make_request(self, method: str, url: str, **kwargs) -> requests.Response | dict[str, str]:
         """
         Make an HTTP request.
 

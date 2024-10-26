@@ -1,0 +1,26 @@
+[flake8]
+max-line-length = 120
+max-complexity = 10
+select = C,E,F,W,B,B950
+count = True
+statistics = True
+ignore =
+    E203,
+    E302,
+    E501,
+    W503,
+    D100,
+    D101,
+    D102,
+    D103,
+    D104,
+    D105,
+    D106,
+    D107
+exclude =
+    .git,
+    __pycache__,
+    *.egg-info,
+    .pytest_cache,
+    .mypy_cache,
+    notebooks/*

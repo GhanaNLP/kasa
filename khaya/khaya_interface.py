@@ -6,6 +6,8 @@ from khaya.asr_api import AsrApi
 from khaya.translation_api import TranslationApi
 from khaya.tts_api import TtsApi
 
+# custom type hint for Response or dict[str, str]
+ResponseOrDict = Response | dict[str, str]
 
 class KhayaInterface:
     """
@@ -58,7 +60,7 @@ class KhayaInterface:
         self.asr_api = AsrApi(api_key, base_url)
         self.tts_api = TtsApi(api_key, base_url)
 
-    def translate(self, text: str, language_pair: str = "en-tw") -> Response:
+    def translate(self, text: str, language_pair: str = "en-tw") -> ResponseOrDict:
         """
         Translate text from one language to another.
 
@@ -72,7 +74,7 @@ class KhayaInterface:
 
         return self.translation_api.translate(text, language_pair)
 
-    def asr(self, audio_file_path: str, language: str = "tw") -> Response:
+    def asr(self, audio_file_path: str, language: str = "tw") -> ResponseOrDict:
         """
         Get the transcription of an audio file from a given language.
 
@@ -85,7 +87,7 @@ class KhayaInterface:
         """
         return self.asr_api.transcribe(audio_file_path, language)
 
-    def tts(self, text: str, lang: str) -> Response:
+    def tts(self, text: str, lang: str) -> ResponseOrDict:
         """
         Synthesize speech from text.
 
