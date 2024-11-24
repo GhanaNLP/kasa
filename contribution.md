@@ -6,7 +6,6 @@ Below, you'll find a guide to help you contribute smoothly.
 
 ## Table of Contents
 - [Setting Up Your Development Environment](#setting-up-your-development-environment)
-- [Development Workflow](#development-workflow)
 - [Coding Standards and Best Practices](#coding-standards-and-best-practices)
 - [Testing Your Code](#testing-your-code)
 - [Submitting a Pull Request](#submitting-a-pull-request)
@@ -36,37 +35,7 @@ Make sure to create a virtual environment, then proceed.
    ```
 
    We like clean contributions
-
-## Development Workflow
-
-1. **Create a Branch:**
-   Create a branch for your work. Use a meaningful name that hints at the purpose (e.g., `feature-enhance-translation`):
-   ```bash
-   git checkout -b <branch-name>
-   ```
-
-2. **Implement Your Changes:**
-   - Modify or add code with attention to detail and consistency.
-   - Include proper documentation and comments where needed.
-   - Add or update unit tests to cover your changes.
-
-3. **Run Tests Locally:**
-   Test thoroughly. Ensure your code doesn’t break existing functionality:
-   ```bash
-   pytest
-   ```
-
-4. **Commit Your Work:**
-   Keep your commit messages descriptive and concise:
-   ```bash
-   git add .
-   git commit -m "Added new preprocessing method for improved efficiency"
-   ```
-
-5. **Push to Your Branch:**
-   ```bash
-   git push origin <branch-name>
-   ```
+   
 
 ## Coding Standards and Best Practices
 
