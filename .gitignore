@@ -3,7 +3,6 @@ data/
 backup/
 .DS_Store
 .vscode/
-.devcontainer/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
