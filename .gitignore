@@ -3,6 +3,7 @@ data/
 backup/
 .DS_Store
 .vscode/
+.devcontainer/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -46,13 +47,6 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 
-# Flask stuff:
-instance/
-.webassets-cache
-
-
-# Sphinx documentation
-docs/_build/
 
 # PyBuilder
 target/
@@ -77,9 +71,7 @@ ipython_config.py
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow
 __pypackages__/
 
-# Celery stuff
-celerybeat-schedule
-celerybeat.pid
+
 
 
 # Environments
@@ -98,4 +90,6 @@ venv.bak/
 .mypy_cache/
 .dmypy.json
 dmypy.json
+
+
 
