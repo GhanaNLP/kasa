@@ -1,5 +1,5 @@
 from requests.models import Response
-
+from khaya.preprocessor import num_convert
 from khaya.base_api import BaseApi
 
 
@@ -15,6 +15,7 @@ class TranslationApi(BaseApi):
         Returns:
             dict: The translated text.
         """
+        text = num_convert(text) # preprocessing text to convert number digits to words
         url = f"{self.base_url}/v1/translate"
         payload = {"in": text, "lang": language_pair}
         response = self._make_request("POST", url, json=payload)
