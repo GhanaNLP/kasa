@@ -1,7 +1,7 @@
 .DEFAULT_GOAL := help
 .PHONY: help lint test
 
-SRD_DIR = khaya
+SRC_DIR = khaya
 TEST_DIR = tests
 
 ci: lint typecheck test ## Run all CI checks 
@@ -14,11 +14,11 @@ lint:  ## Run linting
 
 
 typecheck: ## Run type checking
-	poetry run mypy $(SRD_DIR)
+	poetry run mypy $(SRC_DIR)
 .PHONY: typecheck
 
 test: ## Run tests
-	poetry run coverage run --source=$(SRD_DIR) -m pytest -v $(TEST_DIR) && poetry run coverage report -m
+	poetry run coverage run --source=$(SRC_DIR) -m pytest -v $(TEST_DIR) && poetry run coverage report -m
 .PHONY: test
 
 clean-py: ## Remove python cache files
@@ -26,6 +26,19 @@ clean-py: ## Remove python cache files
 	find . -name '*.pyc' -type f -exec rm {} +
 	rm -rf ./*.egg-info
 .PHONY: clean-py
+
+docs: ## Generate documentation mkdocs
+	poetry run mkdocs build
+.PHONY: docs
+
+serve-docs: ## Serve documentation
+	poetry run mkdocs serve
+.PHONY: serve-docs
+
+## build and serve documentation
+build-serve: docs serve-docs
+.PHONY: build-serve
+
 
 .PHONY: help
 help: ## Show help message

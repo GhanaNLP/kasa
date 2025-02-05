@@ -29,7 +29,7 @@ class KhayaInterface:
 
     import os
 
-    # Initialize the Khaya API interface with your API key assuming you have one saved 
+    # Initialize the Khaya API interface with your API key assuming you have one saved
     # in an environment variable called KHAYA_API_KEY
 
     api_key = os.environ.get("KHAYA_API_KEY")
