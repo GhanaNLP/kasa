@@ -2,6 +2,7 @@ from requests.models import Response
 
 from khaya.services.base_api import BaseApi
 from khaya.config import Settings
+from khaya.exceptions import TranslationError
 
 
 class TranslationService:
@@ -23,6 +24,12 @@ class TranslationService:
         Returns:
             dict: The translated text.
         """
-        payload = {"in": text, "lang": language_pair}
-        response = self.http_client.request("POST", self.endpoint, json=payload)
-        return response
+        if not text or not language_pair:
+            raise TranslationError("Text and language pair are required", 400)
+
+        try:
+            payload = {"in": text, "lang": language_pair}
+            response = self.http_client.request("POST", self.endpoint, json=payload)
+            return response
+        except Exception as e:
+            raise TranslationError(str(e), 500)

@@ -2,6 +2,7 @@ from requests.models import Response
 
 from khaya.services.base_api import BaseApi
 from khaya.config import Settings
+from khaya.exceptions import ASRTranscriptionError
 
 
 class AsrService:
@@ -22,12 +23,14 @@ class AsrService:
         Returns:
             dict: The transcribed text.
         """
+        try:
+            url = f"{self.endpoint}?language={language}"
+            with open(audio_file_path, "rb") as db:
+                data = db.read()
 
-        url = f"{self.endpoint}?language={language}"
-        with open(audio_file_path, "rb") as db:
-            data = db.read()
+            # self.http_client.headers["Content-Type"] = "audio/wav"
 
-        # self.http_client.headers["Content-Type"] = "audio/wav"
-
-        response = self.http_client.request("POST", url, data=data)
-        return response
+            response = self.http_client.request("POST", url, data=data)
+            return response
+        except Exception as e:
+            raise ASRTranscriptionError(str(e), 500)
