@@ -1,6 +1,7 @@
 from typing import Dict
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from khaya.constants import TIMEOUT, RETRY_ATTEMPTS
 
 
 class Settings(BaseSettings):
@@ -11,8 +12,8 @@ class Settings(BaseSettings):
         "tts": "https://translation-api.ghananlp.org/tts/v1/tts",
         "asr": "https://translation-api.ghananlp.org/asr/v1/transcribe",
     }
-    timeout: int = 30
-    retry_attempts: int = 3
+    timeout: int = TIMEOUT
+    retry_attempts: int = RETRY_ATTEMPTS
 
     model_config = SettingsConfigDict(
         env_file=".env", env_file_encoding="utf-8", extra="ignore"
