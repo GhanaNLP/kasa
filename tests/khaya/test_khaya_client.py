@@ -1,23 +1,24 @@
 import pytest
 
-from khaya import khayaAPI
+from khaya import KhayaClient
 
 
 @pytest.mark.parametrize(
-    "task, input, lang,", [
+    "task, input, lang",
+    [
         ("translate", "Hello", "en-tw"),
-        ("asr", "tests/khaya/me_ho_ye.wav", "tw"),
-        ("tts", "Hello", "tw"),
-    ]
+        ("transcribe", "tests/khaya/me_ho_ye.wav", "tw"),
+        ("synthesize", "Hello", "tw"),
+    ],
 )
 def test_invalid_api_key(task, input, lang):
     invalid_api_key = "invalid_api_key"
-    khaya_interface = khayaAPI(invalid_api_key)
+    khaya_interface = KhayaClient(invalid_api_key)
 
     # execute the task
     result = getattr(khaya_interface, task)(input, lang)
 
-    assert "401 Client Error" in result["message"]
+    assert "401 Access Denied" in result["message"]
 
 
 class TestTranslate:
@@ -54,7 +55,7 @@ class TestASR:
     def test_asr_valid(self, khaya_interface):
         audio_file_path = "tests/khaya/me_ho_ye.wav"
 
-        result = khaya_interface.asr(audio_file_path, "tw")
+        result = khaya_interface.transcribe(audio_file_path, "tw")
 
         assert result.status_code == 200
         assert "error" not in result.text.lower()
@@ -64,15 +65,15 @@ class TestASR:
         audio_file_path = "tests/khaya/me_ho_ye.wav"
         wrong_lang = "fw"
 
-        result = khaya_interface.asr(audio_file_path, wrong_lang)
+        result = khaya_interface.transcribe(audio_file_path, wrong_lang)
 
-        assert "error" in result['message'].lower()
+        assert "error" in result["message"].lower()
 
     def test_asr_error_nonexistent_file(self, khaya_interface):
         audio_file_path = "tests/khaya/nonexistent.wav"
 
         with pytest.raises(FileNotFoundError):
-            khaya_interface.asr(audio_file_path, "tw")
+            khaya_interface.transcribe(audio_file_path, "tw")
 
 
 class TestTTS:
@@ -81,7 +82,7 @@ class TestTTS:
         text = "Hello"
         lang = "tw"
 
-        result = khaya_interface.tts(text, lang)
+        result = khaya_interface.synthesize(text, lang)
 
         assert result.status_code == 200
         assert isinstance(result.content, bytes)
@@ -91,7 +92,7 @@ class TestTTS:
         text = "Hello"
         wrong_lang = "fw"
 
-        result = khaya_interface.tts(text, wrong_lang)
+        result = khaya_interface.synthesize(text, wrong_lang)
 
         assert "error" in result.text.lower()
 
@@ -99,6 +100,6 @@ class TestTTS:
         text = ""
         lang = "tw"
 
-        result = khaya_interface.tts(text, lang)
+        result = khaya_interface.synthesize(text, lang)
 
         assert "error" in result.text.lower()
