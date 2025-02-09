@@ -1,3 +1,3 @@
-from .khaya_interface import KhayaInterface as khayaAPI
+from .khaya_client import KhayaClient
 
-__all__ = ["khayaAPI"]
+__all__ = ["khayaClient"]

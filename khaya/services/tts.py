@@ -2,10 +2,15 @@ import json
 
 from requests.models import Response
 
-from khaya.base_api import BaseApi
+from khaya.services.base_api import BaseApi
+from khaya.config import Settings
 
 
-class TtsApi(BaseApi):
+class TtsService:
+    def __init__(self, http_client: BaseApi, config: Settings):
+        self.http_client = http_client
+        self.endpoint = config.endpoints["tts"]
+
     def synthesize(self, text: str, lang: str) -> Response | dict[str, str]:
         """
         Convert text to speech in a specified African language using the GhanaNLP TTS API.
@@ -17,9 +22,7 @@ class TtsApi(BaseApi):
         Returns:
             bytes: The synthesized audio.
         """
-        url = f"{self.base_url}/tts/v1/tts"
-
         payload = json.dumps({"text": text, "language": lang})
 
-        response = self._make_request("POST", url, data=payload)
+        response = self.http_client.request("POST", self.endpoint, data=payload)
         return response
