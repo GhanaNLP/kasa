@@ -4,6 +4,7 @@ from requests.models import Response
 
 from khaya.services.base_api import BaseApi
 from khaya.config import Settings
+from khaya.exceptions import TTSGenerationError
 
 
 class TtsService:
@@ -22,7 +23,13 @@ class TtsService:
         Returns:
             bytes: The synthesized audio.
         """
-        payload = json.dumps({"text": text, "language": lang})
+        if not text or not lang:
+            raise TTSGenerationError("Text and language are required", 400)
 
-        response = self.http_client.request("POST", self.endpoint, data=payload)
-        return response
+        try:
+            payload = json.dumps({"text": text, "language": lang})
+
+            response = self.http_client.request("POST", self.endpoint, data=payload)
+            return response
+        except Exception as e:
+            raise TTSGenerationError(str(e), 500)

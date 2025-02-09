@@ -1,8 +1,3 @@
-import os
-import tempfile
-
-import pytest
-
 from khaya.config import Settings
 from khaya.constants import TIMEOUT, RETRY_ATTEMPTS
 
