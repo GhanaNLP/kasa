@@ -8,7 +8,9 @@ authors = [
     ]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "kasa"}]
+
+[[tool.poetry.packages]]
+include = "khaya"
 
 [tool.poetry.dependencies]
 python = "^3.11"
