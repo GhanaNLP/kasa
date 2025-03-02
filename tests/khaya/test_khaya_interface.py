@@ -30,7 +30,7 @@ class TestTranslate:
 
         assert result.status_code == 200
         assert result.text is not None
-        assert "error" not in result.text.lower()
+        assert "error" not in result["message"].lower()
 
     def test_translate_error(self, khaya_interface):
         text = "Hello"
@@ -38,7 +38,7 @@ class TestTranslate:
 
         result = khaya_interface.translate(text, wrong_translation_pair)
 
-        assert "error" in result.text.lower()
+        assert "error" in result["message"].lower()
 
     def test_translate_empty_text(self, khaya_interface):
         text = ""
@@ -46,7 +46,7 @@ class TestTranslate:
 
         result = khaya_interface.translate(text, translation_pair)
 
-        assert "error" in result.text.lower()
+        assert "error" in result["message"].lower()
 
 
 class TestASR:
@@ -57,7 +57,7 @@ class TestASR:
         result = khaya_interface.asr(audio_file_path, "tw")
 
         assert result.status_code == 200
-        assert "error" not in result.text.lower()
+        assert "error" not in result["message"].lower()
         assert result.json() == "me ho yɛ"
 
     def test_asr_error_invalid_language(self, khaya_interface):
@@ -85,7 +85,7 @@ class TestTTS:
 
         assert result.status_code == 200
         assert isinstance(result.content, bytes)
-        assert "error" not in result.text.lower()
+        assert "error" not in result["message"].lower()
 
     def test_tts_error(self, khaya_interface):
         text = "Hello"
@@ -93,7 +93,7 @@ class TestTTS:
 
         result = khaya_interface.tts(text, wrong_lang)
 
-        assert "error" in result.text.lower()
+        assert "error" in result["message"].lower()
 
     def test_tts_empty_text(self, khaya_interface):
         text = ""
@@ -101,4 +101,4 @@ class TestTTS:
 
         result = khaya_interface.tts(text, lang)
 
-        assert "error" in result.text.lower()
+        assert "error" in result["message"].lower()
