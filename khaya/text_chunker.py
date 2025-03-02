@@ -8,18 +8,18 @@ class TextChunk:
     """Text chunk with metadata for translation."""
     content: str
     index: int
-    context_prefix: str = ""
-    context_suffix: str = ""
+    chunk_pfx: str = ""
+    chunk_sfx: str = ""
 
 class BatchTranslator:
-    """Minimal implementation for chunking and translating large texts."""
+    """chunking and translating large texts."""
     
     def __init__(self, translator, max_chunk_size: int = 9900, max_workers: int = 5):
         self.translator = translator
         self.max_workers = max_workers
         self.max_chunk_size = max_chunk_size
         
-        # Initialize text splitter
+        # text splitter initialisaing
         overlap = min(int(max_chunk_size * 0.2), 200)
         self.text_splitter = RecursiveCharacterTextSplitter(
             chunk_size=max_chunk_size,
@@ -28,17 +28,17 @@ class BatchTranslator:
             separators=["\n\n", "\n", ". ", "! ", "? ", ".", "!", "?", " ", ""]
         )
     
-    def translate(self, text: str) -> str:
+    def chunk_translate(self, text: str) -> str:
         """Translate large text by chunking, translating in parallel, and reassembling."""
-        # Create chunks
+        # create chunks
         chunks = list(self._create_chunks(text))
         if not chunks:
             return ""
         
-        # Translate chunks in parallel
-        results = self._translate_chunks(chunks)
+        #  chunk translation
+        results = self.multichunk_translate(chunks)
         
-        # Reassemble translated text
+        # assembling translated text
         translated_text = " ".join(
             r.get('translated_text', '') 
             for r in sorted(results, key=lambda x: x['index'])
@@ -57,25 +57,25 @@ class BatchTranslator:
             return
             
         for i, chunk in enumerate(chunks):
-            # Add context from adjacent chunks
-            context_prefix = ""
+            # ensure context after chunks 
+            chunk_pfx = ""
             if i > 0:
                 prev_words = chunks[i-1].split()
-                context_prefix = " ".join(prev_words[-min(50, len(prev_words)):])
+                chunk_pfx = " ".join(prev_words[-min(50, len(prev_words)):])
             
-            context_suffix = ""
+            chunk_sfx = ""
             if i < len(chunks) - 1:
                 next_words = chunks[i+1].split()
-                context_suffix = " ".join(next_words[:min(50, len(next_words))])
+                chunk_sfx = " ".join(next_words[:min(50, len(next_words))])
             
             yield TextChunk(
                 content=chunk,
                 index=i,
-                context_prefix=context_prefix,
-                context_suffix=context_suffix
+                chunk_pfx=chunk_pfx,
+                chunk_sfx=chunk_sfx
             )
     
-    def _translate_chunks(self, chunks: List[TextChunk]) -> List[Dict]:
+    def _multichunk_translate(self, chunks: List[TextChunk]) -> List[Dict]:
         """Translate chunks in parallel."""
         results = []
         
@@ -96,12 +96,12 @@ class BatchTranslator:
     
     def _translate_chunk(self, chunk: TextChunk) -> Dict:
         """Translate a single chunk with context."""
-        text = ' '.join(filter(None, [chunk.context_prefix, chunk.content, chunk.context_suffix]))
+        text = ' '.join(filter(None, [chunk.chunk_pfx, chunk.content, chunk.chunk_sfx]))
         
         try:
-            response = self.translator.translate(text)
+            response = self.translator.chunk_translate(text)
             
-            # Handle different response types
+            # handle response
             if isinstance(response, dict) and 'type' in response:
                 return {
                     'index': chunk.index, 
@@ -111,7 +111,7 @@ class BatchTranslator:
             if hasattr(response, 'text'):
                 response_text = response.text
                 
-                # Remove quotes if present
+                # check for quotes in response
                 if response_text.startswith('"') and response_text.endswith('"'):
                     response_text = response_text[1:-1]
                 
