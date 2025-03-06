@@ -11,10 +11,19 @@ class TextChunk:
 class BatchTranslator:
     """Simple chunking and translating for large texts."""
     
-    def __init__(self, translator, max_chunk_size: int = 1000, max_workers: int = 5):
+    def __init__(self, translator, max_chunk_size: int = 1000, max_workers: int = 5, target_language: str = "en-tw"):
+        """Initialize the BatchTranslator.
+        
+        Args:
+            translator: The translator object with a translate method
+            max_chunk_size: Maximum size of each chunk in characters
+            max_workers: Maximum number of parallel translation workers
+            target_language: Target language code for translation
+        """
         self.translator = translator
         self.max_workers = max_workers
         self.max_chunk_size = max_chunk_size
+        self.target_language = target_language
     
     def chunk_translate(self, text: str) -> str:
         """Translate large text by chunking, translating in parallel, and reassembling."""
@@ -24,15 +33,18 @@ class BatchTranslator:
         # create chunks
         chunks = self._create_chunks(text)
         
-        # Translate chunks in parallel
+        # translate chunks in parallel
         results = self._multichunk_translate(chunks)
         
+        # check if there are errors in chunk translation. 
+        errors = [r for r in results if 'error' in r]
+        if errors:
+            error_msg = f"Translation failed for {len(errors)} of {len(results)} chunks: "
+            error_details = [f"Chunk {r['index']}: {r['error']}" for r in errors]
+            raise ValueError(error_msg + "; ".join(error_details))
+        
         # assemble translated text
-        translated_text = " ".join(
-            r.get('translated_text', '') 
-            for r in results  # Results are already sorted by _multichunk_translate
-            if 'translated_text' in r
-        )
+        translated_text = " ".join(r['translated_text'] for r in results)
         
         return translated_text
     
@@ -43,33 +55,27 @@ class BatchTranslator:
         chunk_index = 0
         
         while start < len(text):
-            # determine end position 
+            # end position 
             end = min(start + self.max_chunk_size, len(text))
             
-            # search for a good point to chunk the text
+            # search for chunk boundary
             if end < len(text):
                 chunk_text = text[start:end]
                 
-                # using seprators 
-                for seperator in ['. ', '! ', '? ']:
-                    position = chunk_text.rfind(seperator)
+                # break at sentence boundaries or spaces
+                separators = ['. ', '! ', '? ', ' ']
+                for separator in separators:
+                    position = chunk_text.rfind(separator)
                     if position > 0:
-                        end = start + position + 2  # Include the separator and space
+                        end = start + position + len(separator)
                         break
-                
-                # try space if no seperator found 
-                if end == min(start + self.max_chunk_size, len(text)):
-                    position = chunk_text.rfind(' ')
-                    if position > 0:
-                        end = start + position + 1  # Include the space
             
             # create chunk and add to list
-            chunk_text = text[start:end].strip()
-            if chunk_text:
+            if (chunk_text := text[start:end].strip()):
                 chunks.append(TextChunk(content=chunk_text, index=chunk_index))
                 chunk_index += 1
             
-            # move to next position
+            # next position
             start = end
         
         return chunks
@@ -91,23 +97,14 @@ class BatchTranslator:
                         'error': str(e)
                     })
         
-        # Sort results by index before returning
+        # sort results by index before returning
         return sorted(results, key=lambda x: x['index'])
     
     def _translate_chunk(self, chunk: TextChunk) -> Dict:
         """Translate a single chunk."""
         try:
-            # Check if the translator has a translate method (KhayaInterface)
-            if hasattr(self.translator, 'translate'):
-                response = self.translator.translate(chunk.content, "en-tw")
-            # Fallback to chunk_translate for backward compatibility
-            elif hasattr(self.translator, 'chunk_translate'):
-                response = self.translator.chunk_translate(chunk.content)
-            else:
-                return {
-                    'index': chunk.index,
-                    'error': "Translator has no translate or chunk_translate method"
-                }
+            # call the translate method
+            response = self.translator.translate(chunk.content, self.target_language)
             
             if isinstance(response, dict) and 'type' in response:
                 return {
@@ -116,14 +113,9 @@ class BatchTranslator:
                 }
             
             if hasattr(response, 'text'):
-                response_text = response.text
-                
-                if response_text.startswith('"') and response_text.endswith('"'):
-                    response_text = response_text[1:-1]
-                
                 return {
                     'index': chunk.index,
-                    'translated_text': response_text
+                    'translated_text': response.text
                 }
             
             return {
