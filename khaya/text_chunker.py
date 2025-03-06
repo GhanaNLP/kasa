@@ -30,7 +30,7 @@ class BatchTranslator:
         # assemble translated text
         translated_text = " ".join(
             r.get('translated_text', '') 
-            for r in sorted(results, key=lambda x: x['index'])
+            for r in results  # Results are already sorted by _multichunk_translate
             if 'translated_text' in r
         )
         
