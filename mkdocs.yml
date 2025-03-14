@@ -97,8 +97,8 @@ nav:
     - contributing/index.md
   - API Reference: 
       - khaya:
-          - KhayaInterface: 
-            - api-reference/khaya/khaya_interface.md
+          - KhayaClient: 
+            - api-reference/khaya/khaya_client.md
 
 
 markdown_extensions:

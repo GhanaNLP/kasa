@@ -2,16 +2,17 @@ import json
 
 from requests.models import Response
 
-from khaya.services.base_api import BaseApi
-from khaya.config import Settings
-from khaya.exceptions import TTSGenerationError
+from src.khaya.services.base_api import BaseApi
+from src.khaya.exceptions import TTSGenerationError
+from src.khaya.utils import check_authentication
 
 
 class TtsService:
-    def __init__(self, http_client: BaseApi, config: Settings):
+    def __init__(self, http_client: BaseApi):
         self.http_client = http_client
-        self.endpoint = config.endpoints["tts"]
+        self.endpoint = http_client.config.endpoints["tts"]
 
+    @check_authentication
     def synthesize(self, text: str, lang: str) -> Response | dict[str, str]:
         """
         Convert text to speech in a specified African language using the GhanaNLP TTS API.
@@ -21,7 +22,7 @@ class TtsService:
             lang (str): The language of the text.
 
         Returns:
-            bytes: The synthesized audio.
+            bytes: The synthesized audio. ## TODO: check the arguments for all documentation
         """
         if not text or not lang:
             raise TTSGenerationError("Text and language are required", 400)

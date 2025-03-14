@@ -1,15 +1,16 @@
 from requests.models import Response
 
-from khaya.services.base_api import BaseApi
-from khaya.config import Settings
-from khaya.exceptions import ASRTranscriptionError
+from src.khaya.services.base_api import BaseApi
+from src.khaya.exceptions import ASRTranscriptionError
+from src.khaya.utils import check_authentication
 
 
 class AsrService:
-    def __init__(self, http_client: BaseApi, config: Settings):
+    def __init__(self, http_client: BaseApi):
         self.http_client = http_client
-        self.endpoint = config.endpoints["asr"]
+        self.endpoint = http_client.config.endpoints["asr"]
 
+    @check_authentication
     def transcribe(
         self, audio_file_path: str, language="tw"
     ) -> Response | dict[str, str]:

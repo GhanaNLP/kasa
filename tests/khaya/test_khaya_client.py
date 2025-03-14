@@ -1,7 +1,11 @@
 import pytest
 
-from khaya import KhayaClient
-from khaya.exceptions import ASRTranscriptionError, TranslationError, TTSGenerationError
+from src.khaya import KhayaClient
+from src.khaya.exceptions import (
+    ASRTranscriptionError,
+    TranslationError,
+    TTSGenerationError,
+)
 
 
 @pytest.mark.parametrize(
