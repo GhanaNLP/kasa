@@ -2,11 +2,11 @@ from typing import Optional
 
 from requests.models import Response
 
-from khaya.services.base_api import BaseApi
-from khaya.services.asr import AsrService
-from khaya.services.translation import TranslationService
-from khaya.services.tts import TtsService
-from khaya.config import Settings
+from src.khaya.services.base_api import BaseApi
+from src.khaya.services.asr import AsrService
+from src.khaya.services.translation import TranslationService
+from src.khaya.services.tts import TtsService
+from src.khaya.config import Settings
 
 # custom type hint for Response or dict[str, str]
 ResponseOrDict = Response | dict[str, str]
@@ -62,11 +62,10 @@ class KhayaClient:
         config: Optional[Settings] = None,
     ):
         self.config = config if config else Settings(api_key=api_key)
-        self.config.api_key = api_key
         self.http_client = BaseApi(self.config)
-        self.translation = TranslationService(self.http_client, self.config)
-        self.asr = AsrService(self.http_client, self.config)
-        self.tts = TtsService(self.http_client, self.config)
+        self.translation = TranslationService(self.http_client)
+        self.asr = AsrService(self.http_client)
+        self.tts = TtsService(self.http_client)
 
     def translate(self, text: str, language_pair: str = "en-tw") -> ResponseOrDict:
         """

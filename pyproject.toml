@@ -8,6 +8,10 @@ authors = [
     ]
 license = "MIT"
 readme = "README.md"
+packages = [
+    { include = "kasa", from = "src" },
+    { include = "khaya", from = "src" },
+]
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -36,6 +40,10 @@ mkdocs-jupyter = "^0.25.1"
 markdown-include = "^0.8.1"
 mkdocs-material = "^9.5.41"
 mkdocs-monorepo-plugin = "^1.1.0"
+
+
+[tool.mypy]
+files = ["src", "tests"]
 
 [build-system]
 requires = ["poetry-core"]

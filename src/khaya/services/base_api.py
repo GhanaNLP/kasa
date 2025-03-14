@@ -3,8 +3,8 @@ from abc import ABC
 import httpx
 import requests
 
-from khaya.config import Settings
-from khaya.logger import logger
+from src.khaya.config import Settings
+from src.khaya.logger import logger
 
 
 class BaseApi(ABC):
