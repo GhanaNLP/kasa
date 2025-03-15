@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="Kasa",
+    name="kasa",
     version="0.1",
     description="A library of translation and other NLP tools for the Ghanaian language Twi",
     author="Dr.Paul Azunre",
