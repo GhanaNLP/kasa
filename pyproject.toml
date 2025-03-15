@@ -8,6 +8,10 @@ authors = [
     ]
 license = "MIT"
 readme = "README.md"
+packages = [
+  { include = "kasa", from = "src" },
+  { include = "khaya", from = "src" }
+]
 
 
 [tool.poetry.dependencies]
