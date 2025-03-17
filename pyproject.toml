@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "Kasa"
+name = "kasa"
 version = "0.4.0"
 description = "NLP tools put together by GhanaNLP Team"
 authors = [
@@ -8,9 +8,6 @@ authors = [
 ]
 license = "MIT"
 readme = "README.md"
-packages = [
-    { include = "Kasa" }
-]
 
 [tool.poetry.dependencies]
 python = "^3.11"
