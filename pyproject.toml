@@ -12,7 +12,6 @@ packages = [
     { include = "kasa", from = "src" },
     { include = "khaya", from = "src" },
 ]
-[tool.poetry]
 package-mode = false
 
 [tool.poetry.dependencies]
