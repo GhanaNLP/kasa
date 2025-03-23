@@ -12,7 +12,7 @@ packages = [
     { include = "kasa", from = "src" },
     { include = "khaya", from = "src" },
 ]
-package-mode = false
+package-mode = true
 
 [tool.poetry.dependencies]
 python = "^3.11"
