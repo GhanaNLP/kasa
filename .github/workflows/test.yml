@@ -8,14 +8,12 @@ on:
     branches:
       - main
   workflow_dispatch:
-    inputs:
-      branch:
-        required: true
-        default: main
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      KHAYA_API_KEY: ${{ secrets.KHAYA_API_KEY }}
 
     steps:
     - uses: actions/checkout@v2
