@@ -23,7 +23,8 @@ This may require obtaining some data files and accordingly passing the right pat
 # Data Files
 You will need to download two corpus (English and Twi) into a data folder on your local machine in order to run the examples, using the link below.
 
-`https://www.kaggle.com/azunre/jw300entw`
+`https://www.kaggle.com/azunre/jw300entw` or 
+`https://www.kaggle.com/datasets/azunre/twi-dataset`
 
 # Contributing
 Please first clone this repo to your local machine, using a command line tool such as Cygwin or Anaconda Prompt:
