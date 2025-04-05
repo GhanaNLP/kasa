@@ -4,6 +4,8 @@ Created on Fri Apr 17 16:20:38 2020
 
 @author: azunr
 """
+import os
+print(f"Current Directory: {os.getcwd()}")
 
 from Kasa.Preprocessing import Preprocessing # note form of library import
 
@@ -12,8 +14,8 @@ TwiPreprocessor = Preprocessing()
 
 # Read raw parallel dataset
 raw_data_twi,raw_data_en = TwiPreprocessor.read_parallel_dataset(
-        filepath_twi='../data/jw300.en-tw.tw',
-        filepath_english='../data/jw300.en-tw.en')
+        filepath_twi='./data/jw300.en-tw.tw',
+        filepath_english='./data/jw300.en-tw.en')
 
 # Normalize the raw data
 raw_data_en = [TwiPreprocessor.normalize_eng(data) for data in raw_data_en]
