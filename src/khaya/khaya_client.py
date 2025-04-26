@@ -2,14 +2,17 @@ from typing import Optional
 
 from requests.models import Response
 
-from khaya.asr_api import AsrApi
-from khaya.translation_api import TranslationApi
-from khaya.tts_api import TtsApi
+from src.khaya.services.base_api import BaseApi
+from src.khaya.services.asr import AsrService
+from src.khaya.services.translation import TranslationService
+from src.khaya.services.tts import TtsService
+from src.khaya.config import Settings
 
 # custom type hint for Response or dict[str, str]
 ResponseOrDict = Response | dict[str, str]
 
-class KhayaInterface:
+
+class KhayaClient:
     """
     KhayaInterface is a class that provides a high-level interface to the Khaya API.
     It provides methods for translating text, transcribing audio, and synthesizing speech.
@@ -25,7 +28,7 @@ class KhayaInterface:
     Example:
 
     ```python
-    from khaya.khaya_interface import KhayaInterface
+    from khaya.khaya_client import KhayaClient
 
     import os
 
@@ -34,18 +37,18 @@ class KhayaInterface:
 
     api_key = os.environ.get("KHAYA_API_KEY")
 
-    khaya = KhayaInterface(api_key)
+    khaya = KhayaClient(api_key)
 
     # Translate text from English to Twi
     translation_response = khaya.translate("Hello, how are you?", "en-tw")
     print(translation_response.json())
 
     # Transcribe an audio file
-    asr_response = khaya.asr("path/to/audio/file.wav", "tw")
+    asr_response = khaya.transcribe("path/to/audio/file.wav", "tw")
     print(asr_response.json())
 
     # Synthesize speech
-    tts_response = khaya.tts("Hello, how are you?", "en")
+    tts_response = khaya.synthesize("Hello, how are you?", "en")
     # Save the synthesized speech to a file
     with open("output.mp3", "wb") as f:
         f.write(tts_response.content)
@@ -53,12 +56,16 @@ class KhayaInterface:
 
     """
 
-    def __init__(self, api_key: str, base_url: Optional[str] = "https://translation-api.ghananlp.org"):
-        self.api_key = api_key
-        self.base_url = base_url
-        self.translation_api = TranslationApi(api_key, base_url)
-        self.asr_api = AsrApi(api_key, base_url)
-        self.tts_api = TtsApi(api_key, base_url)
+    def __init__(
+        self,
+        api_key: str,
+        config: Optional[Settings] = None,
+    ):
+        self.config = config if config else Settings(api_key=api_key)
+        self.http_client = BaseApi(self.config)
+        self.translation = TranslationService(self.http_client)
+        self.asr = AsrService(self.http_client)
+        self.tts = TtsService(self.http_client)
 
     def translate(self, text: str, language_pair: str = "en-tw") -> ResponseOrDict:
         """
@@ -72,9 +79,9 @@ class KhayaInterface:
             A Response object containing the translated text.
         """
 
-        return self.translation_api.translate(text, language_pair)
+        return self.translation.translate(text, language_pair)
 
-    def asr(self, audio_file_path: str, language: str = "tw") -> ResponseOrDict:
+    def transcribe(self, audio_file_path: str, language: str = "tw") -> ResponseOrDict:
         """
         Get the transcription of an audio file from a given language.
 
@@ -85,9 +92,9 @@ class KhayaInterface:
         Returns:
             A Response object containing the transcription of the audio file.
         """
-        return self.asr_api.transcribe(audio_file_path, language)
+        return self.asr.transcribe(audio_file_path, language)
 
-    def tts(self, text: str, lang: str) -> ResponseOrDict:
+    def synthesize(self, text: str, lang: str) -> ResponseOrDict:
         """
         Synthesize speech from text.
 
@@ -98,4 +105,4 @@ class KhayaInterface:
         Returns:
             A Response object containing the synthesized speech.
         """
-        return self.tts_api.synthesize(text, lang)
+        return self.tts.synthesize(text, lang)

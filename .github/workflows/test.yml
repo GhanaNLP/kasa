@@ -1,39 +1,33 @@
-name: Test Package
+name: Test
 
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     branches:
-      - master
-
+      - main
   workflow_dispatch:
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      KHAYA_API_KEY: ${{ secrets.KHAYA_API_KEY }}
+
     steps:
-      - uses: actions/checkout@v4
+    - uses: actions/checkout@v2
 
-      - name: Set up Python 3.11
-        uses: actions/setup-python@v3
-        with:
-          python-version: "3.11"
-      
-      - name: Install Poetry
-        run: |
-          curl -sSL https://install.python-poetry.org | python3 -
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.11'
 
-      - name: Configure Poetry to not create virtualenvs
-        run: poetry config virtualenvs.create false
+    - name: Install Poetry
+      run: curl -sSL https://install.python-poetry.org | python3 -
 
-      - name: Install dependencies
-        run: poetry install --with test
+    - name: Install dependencies
+      run: poetry install
 
-      - name: Run tests
-        env:
-          khaya_api_key: ${{ secrets.KHAYA_API_KEY }}
-        run: |
-          poetry run pytest --cov=khaya 
+    - name: Run tests
+      run: poetry run pytest 
