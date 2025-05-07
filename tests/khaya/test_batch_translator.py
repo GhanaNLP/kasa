@@ -3,7 +3,7 @@ import os
 from unittest.mock import Mock, MagicMock
 import re
 
-from kasa.text_chunker import BatchTranslator, TextChunk
+from kasa.khaya.text_chunker import BatchTranslator, TextChunk
 
 
 class SimpleTranslator:

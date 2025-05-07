@@ -3,7 +3,7 @@ import os
 import pytest
 from dotenv import load_dotenv
 
-from src.khaya import KhayaClient
+from src.kasa import KhayaClient
 
 os.environ.pop("khaya_api_key", None)  # Remove the key if it exists
 
