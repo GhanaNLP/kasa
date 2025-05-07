@@ -1,8 +1,8 @@
 from dotenv import load_dotenv
 
 
-from src.khaya.config import Settings, DevSettings
-from src.khaya.constants import TIMEOUT, RETRY_ATTEMPTS
+from kasa.config import Settings, DevSettings
+from kasa.constants import TIMEOUT, RETRY_ATTEMPTS
 
 
 def test_default_config(monkeypatch):

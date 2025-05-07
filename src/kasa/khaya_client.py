@@ -1,12 +1,10 @@
 from typing import Optional
-
 from requests.models import Response
-
-from src.khaya.services.base_api import BaseApi
-from src.khaya.services.asr import AsrService
-from src.khaya.services.translation import TranslationService
-from src.khaya.services.tts import TtsService
-from src.khaya.config import Settings
+from kasa.services.base_api import BaseApi
+from kasa.services.asr import AsrService
+from kasa.services.translation import TranslationService
+from kasa.services.tts import TtsService
+from kasa.config import Settings
 
 # custom type hint for Response or dict[str, str]
 ResponseOrDict = Response | dict[str, str]
@@ -28,7 +26,7 @@ class KhayaClient:
     Example:
 
     ```python
-    from khaya.khaya_client import KhayaClient
+    from kasa.khaya_client import KhayaClient
 
     import os
 
@@ -40,15 +38,15 @@ class KhayaClient:
     khaya = KhayaClient(api_key)
 
     # Translate text from English to Twi
-    translation_response = khaya.translate("Hello, how are you?", "en-tw")
+    translation_response = kasa.translate("Hello, how are you?", "en-tw")
     print(translation_response.json())
 
     # Transcribe an audio file
-    asr_response = khaya.transcribe("path/to/audio/file.wav", "tw")
+    asr_response = kasa.transcribe("path/to/audio/file.wav", "tw")
     print(asr_response.json())
 
     # Synthesize speech
-    tts_response = khaya.synthesize("Hello, how are you?", "en")
+    tts_response = kasa.synthesize("Hello, how are you?", "en")
     # Save the synthesized speech to a file
     with open("output.mp3", "wb") as f:
         f.write(tts_response.content)

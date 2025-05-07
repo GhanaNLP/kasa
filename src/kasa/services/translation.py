@@ -1,8 +1,8 @@
 from requests.models import Response
 
-from src.khaya.services.base_api import BaseApi
-from src.khaya.exceptions import TranslationError
-from src.khaya.utils import check_authentication
+from kasa.services.base_api import BaseApi
+from kasa.exceptions import TranslationError
+from kasa.utils import check_authentication
 
 
 class TranslationService:

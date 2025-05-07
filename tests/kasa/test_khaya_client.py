@@ -1,7 +1,7 @@
 import pytest
 
-from src.khaya import KhayaClient
-from src.khaya.exceptions import (
+from kasa import KhayaClient
+from kasa.exceptions import (
     ASRTranscriptionError,
     TranslationError,
     TTSGenerationError,
@@ -12,7 +12,7 @@ from src.khaya.exceptions import (
     "task, input, lang",
     [
         ("translate", "Hello", "en-tw"),
-        ("transcribe", "tests/khaya/me_ho_ye.wav", "tw"),
+        ("transcribe", "kasa/tests/kasa/me_ho_ye.wav", "tw"),
         ("synthesize", "Hello", "tw"),
     ],
 )
@@ -87,7 +87,7 @@ def test_tts_empty_text(khaya_interface):
 
 
 def test_asr_valid(khaya_interface):
-    audio_file_path = "tests/khaya/me_ho_ye.wav"
+    audio_file_path = "kasa/tests/kasa/me_ho_ye.wav"
 
     result = khaya_interface.transcribe(audio_file_path, "tw")
 
@@ -97,7 +97,7 @@ def test_asr_valid(khaya_interface):
 
 
 def test_asr_error_invalid_language(khaya_interface):
-    audio_file_path = "tests/khaya/me_ho_ye.wav"
+    audio_file_path = "kasa/tests/kasa/me_ho_ye.wav"
     wrong_lang = "fw"
 
     result = khaya_interface.transcribe(audio_file_path, wrong_lang)

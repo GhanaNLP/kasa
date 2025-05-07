@@ -1,7 +1,7 @@
 from typing import Dict, Optional
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import Field
-from src.khaya.constants import TIMEOUT, RETRY_ATTEMPTS
+from kasa.constants import TIMEOUT, RETRY_ATTEMPTS
 
 
 class Settings(BaseSettings):

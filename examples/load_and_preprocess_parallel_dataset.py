@@ -5,7 +5,7 @@ Created on Fri Apr 17 16:20:38 2020
 @author: azunr
 """
 
-from kasa.Preprocessing import Preprocessing  # note form of library import
+from kasa.khaya.Preprocessing import Preprocessing  # note form of library import
 
 # Create an instance of Kasa preprocessing class
 TwiPreprocessor = Preprocessing()

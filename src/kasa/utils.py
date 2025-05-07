@@ -1,5 +1,5 @@
 from functools import wraps
-from src.khaya.exceptions import AuthenticationError
+from kasa.exceptions import AuthenticationError
 
 
 def check_authentication(func):
