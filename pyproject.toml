@@ -16,7 +16,7 @@ package-mode = true
 
 [tool.poetry.dependencies]
 python = "^3.11"
-requests = "^2.32.3"
+requests = "^2.32.4"
 pydantic = "^2.10.6"
 pydantic-settings = "^2.7.1"
 httpx = "^0.28.1"
