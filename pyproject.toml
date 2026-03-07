@@ -10,7 +10,6 @@ license = "MIT"
 readme = "README.md"
 packages = [
     { include = "kasa", from = "src" },
-    { include = "khaya", from = "src" },
 ]
 package-mode = true
 
@@ -20,6 +19,7 @@ requests = "^2.32.3"
 pydantic = "^2.10.6"
 pydantic-settings = "^2.7.1"
 httpx = "^0.28.1"
+khaya = {git = "https://github.com/Khaya-AI/khaya-sdk.git"}
 
 [tool.poetry.group.test.dependencies]
 pytest = "^6.0.0"
